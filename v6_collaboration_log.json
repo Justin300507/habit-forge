@@ -1,0 +1,85 @@
+{
+  "decisions": [
+    {
+      "agent": "product_manager",
+      "decision": "product_spec_created",
+      "rationale": "A minimalist habit tracker focused on streaks, visual progress, and weekly performance insights.",
+      "data": {
+        "features": 6,
+        "user_stories": 6,
+        "must_have": [
+          "Habit Management",
+          "Daily Logging",
+          "Streak Engine"
+        ]
+      }
+    },
+    {
+      "agent": "architect",
+      "decision": "architecture_created",
+      "rationale": "11 endpoints across 4 files",
+      "data": {
+        "endpoints": 11
+      }
+    },
+    {
+      "agent": "tech_lead",
+      "decision": "constraints_set",
+      "rationale": "The proposed architecture is well-aligned with the Habit Forge requirements. It correctly identifies the core entities and provides a clear path for i",
+      "data": {
+        "critical_issues": 2,
+        "auth_endpoints": 8,
+        "pagination_required": 2
+      }
+    },
+    {
+      "agent": "qa",
+      "decision": "qa_review_complete",
+      "rationale": "QA score: 55/100",
+      "data": {
+        "score": 55,
+        "blockers": [
+          "Missing core data fields (streaks, goals) required by user stories",
+          "No persistence mechanism for UI theme preference",
+          "Broken seed route prevents testing with sample data",
+          "Missing badge system implementation"
+        ]
+      }
+    },
+    {
+      "agent": "security",
+      "decision": "security_review_complete",
+      "rationale": "Security score: 45/100",
+      "data": {
+        "score": 45
+      }
+    },
+    {
+      "agent": "code_review",
+      "decision": "code_review_complete",
+      "rationale": "Maintainability: 50/100",
+      "data": {
+        "maintainability_score": 50
+      }
+    },
+    {
+      "agent": "performance",
+      "decision": "performance_review_complete",
+      "rationale": "Performance score: 45/100",
+      "data": {
+        "score": 45
+      }
+    },
+    {
+      "agent": "orchestrator",
+      "decision": "pipeline_complete",
+      "rationale": "V6 score: 55/100",
+      "data": {
+        "total_time": 359.42,
+        "can_export": true
+      }
+    }
+  ],
+  "conflicts": [],
+  "shared_context_keys": []
+}

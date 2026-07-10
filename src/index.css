@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --accent: #4f46e5;
+    --brand: #6366f1;
+    --brand-2: #a78bfa;
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+    --shimmer: rgba(255, 255, 255, 0.55);
+  }
+
+  .dark {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --border: #334155;
+    --accent: #6366f1;
+    --shimmer: rgba(255, 255, 255, 0.09);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    margin: 0;
+  }
+  h1, h2, h3 { font-family: var(--font-heading); }
+}
+
+/* ── Motion tokens ─────────────────────────────────────────────────────────
+   Named animate-* utilities (animate-fade-in-up, animate-scale-in, ...) are
+   defined in tailwind.config.js. The raw keyframes below back the arbitrary
+   animate-[fadeIn_0.3s_ease-out] syntax and the .skeleton/.live-dot classes. */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmerSweep {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+@keyframes pingSlow {
+  75%, 100% { transform: scale(2.4); opacity: 0; }
+}
+
+@keyframes gradientPan {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+@layer components {
+  .card {
+    @apply bg-white/80 dark:bg-slate-800/70 backdrop-blur-xl rounded-xl shadow-sm ring-1 ring-black/5 dark:ring-white/5 border border-slate-100 dark:border-slate-700/60 transition-shadow duration-200;
+  }
+  .btn-primary {
+    @apply bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 dark:from-slate-600 dark:to-slate-500 dark:hover:from-slate-500 dark:hover:to-slate-400 active:scale-[0.97] text-white font-medium px-4 py-2 rounded-lg transition-all duration-150 cursor-pointer;
+  }
+  .btn-secondary {
+    @apply bg-slate-100 hover:bg-slate-200 active:scale-[0.97] dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-medium px-4 py-2 rounded-lg transition-all duration-150 cursor-pointer;
+  }
+  .input {
+    @apply w-full border border-slate-200 dark:border-slate-600 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm transition-shadow duration-150 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-500;
+  }
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+  .stat-card {
+    @apply card p-5 hover:shadow-md;
+  }
+  .nav-link {
+    @apply flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-150;
+  }
+  .nav-link-active {
+    @apply bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300;
+  }
+  .nav-link-idle {
+    @apply text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100;
+  }
+
+  /* Shimmer skeleton — shaped placeholder with a moving highlight sweep.
+     Usage: <div className="skeleton h-16" /> (any width/height/rounding on top). */
+  .skeleton {
+    @apply relative overflow-hidden rounded-xl bg-slate-200/80 dark:bg-slate-700/60;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, var(--shimmer), transparent);
+    animation: shimmerSweep 1.6s ease-in-out infinite;
+  }
+
+  /* Live-activity indicator — brand-colored dot with an expanding ping ring.
+     Usage: <span className="live-dot" /> next to "Live" / "Recent activity". */
+  .live-dot {
+    position: relative;
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--brand);
+    flex: none;
+  }
+  .live-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: inherit;
+    animation: pingSlow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* Slow-panning gradient — layer on top of bg-gradient-to-r classes for
+     hero headings / brand text / primary CTAs that should feel alive. */
+  .gradient-animated {
+    background-size: 200% 200%;
+    animation: gradientPan 8s ease infinite;
+  }
+}
